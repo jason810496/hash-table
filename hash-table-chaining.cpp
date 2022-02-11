@@ -13,7 +13,7 @@ const int prime[26] = {
 
 class hash_table{
     private:
-        int Size , P;
+        int Size , P ,cnt;
         vector<list<int> > table;
         inline int hash(int k);
 
@@ -30,10 +30,11 @@ hash_table::hash_table(int sz){
     auto it=lower_bound(prime,prime+26,sz);
     this->P = *it;
     table.resize(sz);
+    cnt=0;
 }
 
 hash_table::~hash_table(){
-
+    cout<<"call destructure\n";
 }
 
 inline int hash_table::hash(int k){
@@ -43,6 +44,7 @@ inline int hash_table::hash(int k){
 void hash_table::Insert(int k){
     int idx=hash(k);
     table[idx].push_back(k);
+    cnt++;
 }
 
 void hash_table::Delete(int k){
@@ -53,6 +55,7 @@ void hash_table::Delete(int k){
             table[idx].erase(it);
         }
     }
+    cnt--;
 }
 
 bool hash_table::Search(int k){
@@ -62,8 +65,4 @@ bool hash_table::Search(int k){
         if(i==k) return true;
     }
     return false;
-}
-
-int main(){
-
 }
